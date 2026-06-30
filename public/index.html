@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Actualización de índices · Pinecone</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>Actualización de índices</h1>
+      <p class="subtitle">Sube un Excel para regenerar el namespace de Pinecone con su contenido.</p>
+    </header>
+
+    <section class="card">
+      <form id="upload-form">
+        <label class="dropzone" id="dropzone">
+          <input type="file" id="file-input" name="archivo" accept=".xlsx" hidden />
+          <span id="dropzone-text">Arrastra aquí tu archivo <strong>.xlsx</strong> o haz clic para seleccionarlo</span>
+        </label>
+
+        <div class="field">
+          <label for="namespace">Namespace (opcional, usa el configurado por defecto si se deja vacío)</label>
+          <input type="text" id="namespace" name="namespace" placeholder="test-automatizacion" />
+          <p class="hint">Si el namespace no existe, se crea automáticamente con la carga.</p>
+        </div>
+
+        <button type="submit" id="submit-btn" disabled>Subir y actualizar índice</button>
+      </form>
+
+      <div class="formats-info">
+        <h3>Formatos soportados</h3>
+        <ul>
+          <li>
+            <strong>FAQ (estructura contactoupn)</strong> — si el Excel tiene columnas
+            <code>PREGUNTA</code> y <code>RESPUESTA</code>, cada fila se indexa como
+            <code>PREGUNTA: ...\nRESPUESTA: ...</code> con la metadata
+            (<code>docId</code>, <code>line</code>, <code>source</code>, <code>blobType</code>)
+            compatible con los índices existentes.
+          </li>
+          <li>
+            <strong>Genérico</strong> — cualquier otro Excel: cada fila se indexa como
+            <code>Columna: valor | Columna: valor</code>.
+          </li>
+        </ul>
+        <p class="hint">El formato se detecta automáticamente y se muestra en el paso de lectura.</p>
+      </div>
+    </section>
+
+    <section class="card hidden" id="status-card">
+      <h2>Estado de la carga</h2>
+      <p id="job-meta" class="job-meta"></p>
+
+      <div class="overall">
+        <div class="overall-bar"><div id="overall-fill" class="overall-fill"></div></div>
+        <span id="overall-label" class="overall-label">0%</span>
+      </div>
+
+      <ol id="steps" class="steps"></ol>
+
+      <div id="job-warnings" class="warnings hidden"></div>
+      <div id="job-error" class="error-panel hidden"></div>
+      <p id="job-result" class="job-result"></p>
+    </section>
+
+    <section class="card">
+      <h2>Cargas recientes</h2>
+      <table class="jobs-table">
+        <thead>
+          <tr><th>Archivo</th><th>Namespace</th><th>Estado</th><th>Fecha</th></tr>
+        </thead>
+        <tbody id="jobs-body">
+          <tr><td colspan="4" class="muted">Sin cargas todavía.</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

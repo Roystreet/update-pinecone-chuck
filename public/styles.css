@@ -1,0 +1,231 @@
+:root {
+  --bg: #f5f6f8;
+  --card: #ffffff;
+  --text: #1d2433;
+  --muted: #6b7280;
+  --primary: #2563eb;
+  --primary-dark: #1e4fc2;
+  --ok: #16a34a;
+  --fail: #dc2626;
+  --border: #e5e7eb;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.container { max-width: 720px; margin: 0 auto; padding: 32px 16px 64px; }
+
+header { margin-bottom: 24px; }
+h1 { font-size: 1.6rem; }
+.subtitle { color: var(--muted); }
+h2 { font-size: 1.1rem; margin-bottom: 12px; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.hidden { display: none; }
+.muted { color: var(--muted); }
+
+/* --- formulario --- */
+.dropzone {
+  display: block;
+  border: 2px dashed var(--border);
+  border-radius: 10px;
+  padding: 36px 16px;
+  text-align: center;
+  color: var(--muted);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.dropzone:hover, .dropzone.dragging {
+  border-color: var(--primary);
+  background: #eff4ff;
+}
+
+.field { margin: 16px 0; }
+.field label { display: block; font-size: 0.85rem; color: var(--muted); margin-bottom: 4px; }
+.field input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+button {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+button:hover:not(:disabled) { background: var(--primary-dark); }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.hint { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+
+.formats-info {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  font-size: 0.88rem;
+}
+.formats-info h3 { font-size: 0.95rem; margin-bottom: 8px; }
+.formats-info ul { padding-left: 18px; color: var(--muted); }
+.formats-info li { margin-bottom: 6px; }
+.formats-info code {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0 4px;
+  font-size: 0.82rem;
+}
+
+/* --- pasos --- */
+.job-meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 12px; }
+
+.steps { list-style: none; }
+.step {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+.step:last-child { border-bottom: none; }
+
+.step-icon { font-size: 1.1rem; width: 24px; text-align: center; }
+.step.pendiente .step-icon { color: var(--muted); }
+.step.en_progreso .step-icon { color: var(--primary); }
+.step.completado .step-icon { color: var(--ok); }
+.step.error .step-icon { color: var(--fail); }
+
+.step-body { flex: 1; }
+.step-label { font-weight: 600; }
+.step.pendiente .step-label { color: var(--muted); font-weight: 400; }
+.step-detail { display: block; font-size: 0.85rem; color: var(--muted); }
+
+.bar {
+  height: 8px;
+  background: var(--border);
+  border-radius: 4px;
+  margin: 6px 0 2px;
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+.job-result { margin-top: 12px; font-weight: 600; }
+.job-result.ok { color: var(--ok); }
+.job-result.fail { color: var(--fail); }
+
+/* --- barra de avance global --- */
+.overall {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.overall-bar {
+  flex: 1;
+  height: 10px;
+  background: var(--border);
+  border-radius: 5px;
+  overflow: hidden;
+}
+.overall-fill {
+  height: 100%;
+  width: 0;
+  background: var(--primary);
+  border-radius: 5px;
+  transition: width 0.5s ease;
+}
+.overall-fill.fail { background: var(--fail); }
+.overall-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--muted);
+  min-width: 56px;
+  text-align: right;
+}
+
+/* --- spinners --- */
+.spinner, .btn-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  vertical-align: middle;
+}
+.btn-spinner {
+  border-color: rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  margin-right: 6px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.dropzone.disabled { pointer-events: none; opacity: 0.5; }
+
+/* --- avisos y errores --- */
+.warnings {
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: #fff8e6;
+  border: 1px solid #f1d48a;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  color: #7c5d10;
+}
+.warnings ul { padding-left: 18px; margin-top: 6px; }
+.warnings li { margin-bottom: 4px; }
+
+.error-panel {
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: #fdecec;
+  border: 1px solid #f3b4b4;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #8a1f1f;
+}
+.error-panel p { margin-top: 6px; }
+.error-panel .hint { color: #a05252; font-size: 0.84rem; }
+
+/* --- historial --- */
+.jobs-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.jobs-table th, .jobs-table td {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+}
+.jobs-table th { color: var(--muted); font-weight: 600; }
+
+.badge {
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+.badge.en_proceso { background: #eff4ff; color: var(--primary); }
+.badge.completado { background: #e9f9ef; color: var(--ok); }
+.badge.error { background: #fdecec; color: var(--fail); }
+.badge.warn { background: #fff8e6; color: #7c5d10; }
