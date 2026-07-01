@@ -13,14 +13,14 @@ test('AppError conserva su mensaje y sugerencia', () => {
   assert.equal(result.hint, 'Agrega filas de datos.');
 });
 
-test('error 401 de OpenAI se traduce a mensaje de API key', () => {
+test('error 401 de Azure OpenAI se traduce a mensaje de API key', () => {
   const err = Object.assign(new Error('Incorrect API key provided'), {
     name: 'AuthenticationError',
     status: 401,
   });
   const result = translateError(err);
-  assert.match(result.message, /OpenAI/);
-  assert.match(result.hint, /OPENAI_API_KEY/);
+  assert.match(result.message, /Azure OpenAI/);
+  assert.match(result.hint, /AZURE_OPENAI_API_KEY/);
 });
 
 test('error 429 se traduce a mensaje de limite de uso', () => {

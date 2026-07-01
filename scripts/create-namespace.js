@@ -15,7 +15,7 @@ import { Pinecone } from '@pinecone-database/pinecone';
 
 const INDEX = process.env.PINECONE_INDEX;
 const NAMESPACE = process.env.PINECONE_NAMESPACE || 'example-namespace';
-const DIMENSION = 1536; // text-embedding-3-small
+const DIMENSION = 1536; // text-embedding-ada-002 (Azure OpenAI)
 
 if (!process.env.PINECONE_API_KEY || !INDEX) {
   console.error('Faltan PINECONE_API_KEY o PINECONE_INDEX en el .env');

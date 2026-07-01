@@ -25,17 +25,17 @@ export function translateError(err) {
   const name = String(err?.name ?? '');
   const status = err?.status ?? err?.statusCode ?? null;
 
-  // ---- OpenAI (embeddings) ----
+  // ---- Azure OpenAI (embeddings) ----
   if (name === 'AuthenticationError' || (status === 401 && msg.toLowerCase().includes('api key'))) {
     return {
-      message: 'La API key de OpenAI no es válida o fue revocada.',
-      hint: 'Revisa OPENAI_API_KEY en el archivo .env del servidor.',
+      message: 'La API key de Azure OpenAI no es válida o fue revocada.',
+      hint: 'Revisa AZURE_OPENAI_API_KEY en el archivo .env del servidor.',
     };
   }
   if (name === 'RateLimitError' || status === 429) {
     return {
-      message: 'Se alcanzó el límite de uso de la API de embeddings (OpenAI).',
-      hint: 'Espera unos minutos y reintenta. Si persiste, revisa la cuota/billing de la cuenta de OpenAI.',
+      message: 'Se alcanzó el límite de uso de la API de embeddings (Azure OpenAI).',
+      hint: 'Espera unos minutos y reintenta. Si persiste, revisa la cuota del deployment en Azure.',
     };
   }
 

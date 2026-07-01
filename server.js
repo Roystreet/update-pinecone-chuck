@@ -11,7 +11,7 @@ import apiRoutes from './src/routes/api.routes.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-for (const name of ['OPENAI_API_KEY', 'PINECONE_API_KEY', 'PINECONE_INDEX']) {
+for (const name of ['AZURE_OPENAI_API_KEY', 'AZURE_OPENAI_ENDPOINT', 'AZURE_OPENAI_DEPLOYMENT', 'PINECONE_API_KEY', 'PINECONE_INDEX']) {
   if (!process.env[name]) {
     console.error(`Falta la variable de entorno ${name} (revisa tu archivo .env)`);
     process.exit(1);
